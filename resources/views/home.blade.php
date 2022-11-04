@@ -11,7 +11,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
+                    @if($user->roles_id==1)
+                    Anda login sebagai Admin
+                    @else
+                    Anda login sebagai user
                 </div>
             </div>
         </div>

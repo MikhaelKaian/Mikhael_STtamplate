@@ -26,3 +26,9 @@ Auth::routes();
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+route::get('/test', function(){
+    return "Hello";
+})->middleware('auth');
+
+Route::get('admin/home', [App\Http\Controllers\AdminController::class, 'index'])->name('home')->middleware('is_admin');
