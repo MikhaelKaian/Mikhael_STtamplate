@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Book;
 use PDF;
 
-class AdminController extends Controller
+class AdminControler extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
@@ -17,6 +17,12 @@ class AdminController extends Controller
     public function index(){
        $user = Auth::user();
        return view('home', compact('user'));
+    }
+    public function books()
+    {
+        $user = Auth::user();
+        $books = Book::all();
+        return view('book', compact('user', 'books'));
     }
 
      public function submit_book(Request $req)
@@ -112,11 +118,6 @@ class AdminController extends Controller
         ]);
      }
 
-     public function books(){
-        $user = Auth::user();
-        $books = Book::all();
-        return view('book', compact('user', 'books'));
-     }
 
      public function print_books(){
         $books = Book::all();
