@@ -10,8 +10,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="card-header">{{__('Dashboard')}}</div>
                 <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
+                    @if($user->roles_id == 1)
+                    anda login sebagai admin
+                    @else
+                        anda login sebagai user
+                    @endif
                 </div>
             </div>
         </div>
