@@ -124,5 +124,5 @@ class AdminControler extends Controller
 
         $pdf = PDF::loadview('print_books',['books'=>$books]);
             return $pdf->download('data_buku.pdf');
-     }
+     }                                                                                      
 }

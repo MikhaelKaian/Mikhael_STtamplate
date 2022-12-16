@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminControler;
 
 
 /*
@@ -37,9 +38,9 @@ Route::get('/home', function() {
 })->name('home')->middleware('auth');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home')->middleware('auth');
 
-Route::get('admin/home', [App\Http\Controllers\AdminControler::class, 'index'])->name('home')->middleware('is_admin');
+Route::get('admin/home', [App\Http\Controllers\AdminControler::class, 'index'])->name('admin.home')->middleware('is_admin');
 
 Route::get('admin/books', [App\Http\Controllers\AdminControler::class, 'books'])->name('admin.books')->middleware('is_admin');
 
@@ -52,5 +53,6 @@ Route::post('admin/books/update/{id}', [App\Http\Controllers\AdminControler::cla
 Route::get('admin/ajaxadmin/dataBuku/{id}', [App\Http\Controllers\AdminControler::class, 'getDataBuku']);
 
 Route::post('admin/books/delete/{id}', [App\Http\Controllers\AdminControler::class,'delete_book'])->name('admin.book.delete')->middleware('is_admin');
+Route::get('admin/print_books', [AdminControler::class, 'print_books'])->name('admin.print.books')->middleware('is_admin');
 
 
