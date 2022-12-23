@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use App\Models\book;
+use App\Models\Book;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\BookExport;
-use App\Imports\BooksImport;
+use App\Imports\BookImport;
 
 
 class AdminControler extends Controller
@@ -44,7 +44,7 @@ class AdminControler extends Controller
         $book->tahun = $req->get('tahun');
         $book->penerbit = $req->get('penerbit');
 
-        if ($reaq->hasFile('cover')) {
+        if ($req->hasFile('cover')) {
             $extention = $req->file('cover')->extension();
 
             $filename = 'cover_buku_'.time().'.'.$extention;
@@ -136,8 +136,14 @@ class AdminControler extends Controller
       return Excel::download(new BookExport, 'books.xlsx');
      }
      
-     public function import(Type $var = null)
+     public function import(Request $req)
      {
-        # code...
+        Excel::import(new BookImport, $req->file('file'));
+
+        $notification = array(
+            'message' => 'Import data berhasil dilakukan',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.books')->with($notification);
      }
 }

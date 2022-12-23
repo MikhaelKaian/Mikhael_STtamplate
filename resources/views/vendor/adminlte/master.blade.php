@@ -170,7 +170,7 @@
                     })
                 @endif
 
-                $('#table-data').DataTable();
+                $('#table-data').Datatables();
                 let baseurl = "<?=url('/')?>";
                 let fullURL = "<?=url()->full()?>";
     </script>
