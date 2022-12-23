@@ -83,7 +83,16 @@
 @stop
 
 @section('content')
+
 <div class="container-fluid">
+    
+    <div class="btn-group" role="group" aria-label="basic example">
+        <a href=" {{ route('admin.book.export') }}" class="btn btn-info" target="_blank">Export</a>
+        <a href="" class="btn btn-warning">Import</a>
+    </div>
+    <hr>
+    <table id="table-data" class="table table-borderer"></table>
+
     <div class="card card-default">
         <div class="card-header">{{'Pengelolaan Buku'}}</div>
         <div class="card-body">

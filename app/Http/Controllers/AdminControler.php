@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use App\Models\Book;
+use App\Models\book;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BookExport;
+use App\Imports\BooksImport;
+
 
 class AdminControler extends Controller
 {
@@ -40,7 +44,7 @@ class AdminControler extends Controller
         $book->tahun = $req->get('tahun');
         $book->penerbit = $req->get('penerbit');
 
-        if ($req->hasFile('cover')) {
+        if ($reaq->hasFile('cover')) {
             $extention = $req->file('cover')->extension();
 
             $filename = 'cover_buku_'.time().'.'.$extention;
@@ -124,5 +128,16 @@ class AdminControler extends Controller
 
         $pdf = PDF::loadview('print_books',['books'=>$books]);
             return $pdf->download('data_buku.pdf');
-     }                                                                                      
+     }
+
+
+     public function export()
+     {
+      return Excel::download(new BookExport, 'books.xlsx');
+     }
+     
+     public function import(Type $var = null)
+     {
+        # code...
+     }
 }
