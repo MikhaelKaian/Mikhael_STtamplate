@@ -14,8 +14,10 @@ class CreateTindakansTable extends Migration
     public function up()
     {
         Schema::create('tindakans', function (Blueprint $table) {
-            $table->bigIncrements('id_tindakan');
-            $table->string('jenis_pemerikasan');
+            $table->id();
+            $table->string('nama_pasien');
+            $table->string('faskes_pencatat');
+            $table->string('jenis_pemeriksan');
             $table->date('tanggal_kunjungan_pasien');
             $table->date('tanggal_pemeriksaan_lab');
             $table->string('jenis_parasit');
@@ -31,7 +33,10 @@ class CreateTindakansTable extends Migration
             $table->string('status_pengobatan');
             $table->enum('perawatan', ['rawat_inap', 'rawat_jalan']);
             $table->string('kematian_dengan_malaria');
+
             $table->timestamps();
+            // $table->foreign('nama_pasien')->references('id')->on('pasiens')->onDelete('cascade');
+
         });
     }
 

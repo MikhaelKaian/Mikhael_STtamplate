@@ -3,110 +3,20 @@
 @section('title', 'Home Page')
 
 @section('content_header')
-    <h1>Laporan Data Malaria
+    <h1>Data Pasien Terjangkit
 @stop
 
 @section('js')
-    {{-- <script>
-        $(function(){
-            // Untuk fungsi edit buku
-            $(document).on('click', '#btn-edit-buku', function(){
-                let id = $(this).data('id');
-
-                $.ajax({
-                    type: "get",
-                    url: "{{url('admin/ajaxadmin/dataBuku')}}/"+id,
-                    dataType: 'json',
-                    success: function(res){
-                        console.log(res); // Menampilkan data yang diterima dari server
-                        $('#edit-judul').val(res.judul);
-                        $('#edit-penerbit').val(res.penerbit);
-                        $('#edit-penulis').val(res.penulis);
-                        $('#edit-tahun').val(res.tahun);
-                        $('#edit-id').val(res.id);
-                    },
-                });
-            });
-        });
-
-        function deleteConfirmation(npm, judul) {
-            swal.fire({
-                title: "Hapus?",
-                type: 'warning',
-                text: "Apakah anda yakin akan menghapus data buku dengan judul"+judul+"?!",
-
-                showCancelButton: !0,
-                confirmButtonText: "Ya, Lakukan!",
-                cancelButtonText: "Tidak, Batalkan!",
-                reverseButtons: !0
-            }).then(function (e) {
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                    $.ajax({
-                        type: 'POST',
-                        url: "books/delete/"+npm,
-                        data: {_token: CSRF_TOKEN},
-                        dataType: 'JSON',
-                        success: function (results) {
-                            if (results.success === true) {
-                                swal.fire("Done!", results.message, "success");
-
-                                //refresh page after 2 secconds
-
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 100);
-                            }else{
-                                swal.fire("Error!",results.message, "error");
-                            }
-                        }
-                    });
-                }else{
-                    e.dismiss;
-                }
-            }, function (dismiss) {
-                return false;
-            })
-        }
-    </script> --}}
+{{-- <div></div> --}}
 @stop
 
 @section('content')
 
 <div class="container-fluid">
     <div class="card card-default">
-        <div class="card-header">{{'Pengelolaan Buku'}}</div>
+        <div class="card-header">{{'Tambah Data Pasien'}}</div>
         <div class="card-body">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahBukuModal"><i class="fa fa-plus"></i>Tambah Data</button>
-
-            <!-- Modal Import Data Form -->
-            <div class="modal fade" id="importDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Import Data</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="{{ route('admin.book.import') }}" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="cover">Upload File</label>
-                                        <input type="file" class="form-control" name="file">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Import Data</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahPasienModal"><i class="fa fa-plus"></i>Tambah Data</button>
             <hr/>
             </div>
             <table id="table-data" class="table table-borderer">
@@ -146,11 +56,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahPasienModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Buku</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pasien Terjangkit</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

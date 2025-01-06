@@ -14,7 +14,7 @@ class CreatePasiensTable extends Migration
     public function up()
     {
         Schema::create('pasiens', function (Blueprint $table) {
-            $table->bigIncrements('id_pasien');
+            $table->id();
             $table->string('nama_pasien',60);
             $table->integer('usia');
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);

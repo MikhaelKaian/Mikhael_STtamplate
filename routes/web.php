@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminControler;
-
+use App\Http\Controllers\TindakanController;
+use App\Http\Controllers\FaskesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,13 +29,15 @@ Auth::routes();
 //     return view('home');
 // })->name('home')->middleware('auth');
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+// Route::get('/home', function() {
+//     return view('home');
+// })->name('home')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
+// Faskes "Pasies"
 
 Route::get('admin/home', [App\Http\Controllers\AdminControler::class, 'index'])->name('admin.home');
 
@@ -42,15 +45,27 @@ Route::get('pasiens', [App\Http\Controllers\AdminControler::class, 'pasiens'])->
 
 Route::post('pasiens', [App\Http\Controllers\AdminControler::class, 'submit_book'])->name('pasien.submit');
 
-Route::patch('books/update', [App\Http\Controllers\AdminControler::class, 'update_book'])->name('admin.book.update');
+// Faskes " Page Tindakan"
 
-Route::post('books/update/{id}', [App\Http\Controllers\AdminControler::class, 'delete_book'])->name('admin.book.delete');
+Route::get('admin/home', [App\Http\Controllers\TindakanController::class, 'index'])->name('admin.home');
 
-Route::get('ajaxadmin/dataBuku/{id}', [App\Http\Controllers\AdminControler::class, 'getDataBuku']);
+Route::get('tindakans', [App\Http\Controllers\TindakanController::class, 'tindakans'])->name('tindakans');
 
-Route::post('books/delete/{id}', [App\Http\Controllers\AdminControler::class,'delete_book'])->name('admin.book.delete');
+Route::post('/tindakans/store', [TindakanController::class, 'store'])->name('tindakans.route');
 
-Route::get('print_books', [AdminControler::class, 'print_books'])->name('admin.print.books');
+//Admin / Dinkes "Faskes"
 
-Route::get('books/export', [AdminControler::class, 'export'])->name('admin.book.export');
-Route::post('books/import', [AdminControler::class, 'import'])->name('admin.book.import');
+Route::get('admin/home', [App\Http\Controllers\FaskesController::class, 'index'])->name('admin.home')->middleware('is_admin');
+
+Route::get('faskes', [App\Http\Controllers\FaskesController::class, 'faskes'])->name('faskes')->middleware('is_admin');
+
+Route::post('faskes', [App\Http\Controllers\FaskesController::class, 'submit_faskes'])->name('faskes');
+
+Route::patch('/faskes/ubah', [App\Http\Controllers\FaskesController::class, 'update_faskes'])->name('faskes.ubah')->middleware('is_admin');;
+
+Route::get('/admin/ajaxadmin/dataBuku/{id}', [App\Http\Controllers\FaskesController::class, 'getDataBuku'])->middleware('is_admin');;
+
+Route::get('/faskes/delete/{id}', [\App\Http\Controllers\FaskesController::class, 'delete_faskes'])->name('faskes.delete')->middleware('is_admin');
+
+//admin / Dinkes "Laporan Malaria"
+Route::get('malaria', [App\Http\Controllers\MalariaControler::class, 'malaria'])->name('malaria')->middleware('is_admin');

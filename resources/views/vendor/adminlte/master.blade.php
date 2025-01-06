@@ -22,40 +22,26 @@
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
-    {{-- Base Stylesheets (depends on Laravel asset bundling tool) --}}
-    @if(config('adminlte.enabled_laravel_mix', false))
-        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
+    {{-- Base Stylesheets --}}
+    @if(!config('adminlte.enabled_laravel_mix'))
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+        {{-- Configured Stylesheets --}}
+        @include('adminlte::plugins', ['type' => 'css'])
+
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
+
+        @if(config('adminlte.google_fonts.allowed', true))
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        @endif
     @else
-        @switch(config('adminlte.laravel_asset_bundling', false))
-            @case('mix')
-                <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_css_path', 'css/app.css')) }}">
-            @break
-
-            @case('vite')
-                @vite([config('adminlte.laravel_css_path', 'resources/css/app.css'), config('adminlte.laravel_js_path', 'resources/js/app.js')])
-            @break
-
-            @case('vite_js_only')
-                @vite(config('adminlte.laravel_js_path', 'resources/js/app.js'))
-            @break
-
-            @default
-                <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-                <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-                <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-
-                @if(config('adminlte.google_fonts.allowed', true))
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-                @endif
-        @endswitch
+        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
-
-    {{-- Extra Configured Plugins Stylesheets --}}
-    @include('adminlte::plugins', ['type' => 'css'])
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
-        @if(intval(app()->version()) >= 7)
+        @if(app()->version() >= 7)
             @livewireStyles
         @else
             <livewire:styles />
@@ -82,7 +68,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicons/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('favicons/android-icon-192x192.png') }}">
         <link rel="manifest" crossorigin="use-credentials" href="{{ asset('favicons/manifest.json') }}">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
@@ -91,111 +77,105 @@
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
-
     {{-- Body Content --}}
     @yield('body')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- Base Scripts (depends on Laravel asset bundling tool) --}}
-    @if(config('adminlte.enabled_laravel_mix', false))
-        <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
+
+    {{-- Base Scripts --}}
+    @if(!config('adminlte.enabled_laravel_mix'))
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        {{-- Configured Scripts --}}
+        @include('adminlte::plugins', ['type' => 'js'])
+
+        <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
-        @switch(config('adminlte.laravel_asset_bundling', false))
-            @case('mix')
-                <script src="{{ mix(config('adminlte.laravel_js_path', 'js/app.js')) }}"></script>
-            @break
-
-            @case('vite')
-            @case('vite_js_only')
-            @break
-
-            @default
-                <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-                <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-                <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-                <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-        @endswitch
+        <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
-
-    {{-- Extra Configured Plugins Scripts --}}
-    @include('adminlte::plugins', ['type' => 'js'])
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
-        @if(intval(app()->version()) >= 7)
+        @if(app()->version() >= 7)
             @livewireScripts
         @else
             <livewire:scripts />
         @endif
     @endif
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 
     <script>
-        const Toast = Swal.mixin ({
-            toast: true, 
-            position: 'top end',
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
         })
 
-        @if(Session::has('message'))
+        @if (Session::has('message'))
             var type = "{{Session::get('alert-type')}}";
+
             switch (type) {
                 case 'info':
                     Toast.fire({
                         type: 'info',
-                        title: "{{Session::get('message') }}"
+                        title: "{{Session::get('message')}}"
                     })
-                break;
-                case 'success':
-                    Toast.fire({
-                        type: 'success',
-                        title: "{{Session::get('message') }}"
+                    break;
+                        case 'success':
+                            Toast.fire({
+                                type: 'success',
+                                title: "{{Session::get('message')}}"
                     })
-                break;
-                case 'warning':
-                    Toast.fire({
-                        type: 'warning',
-                        title: "{{Session::get('message') }}"
+                    break;
+                        case 'warning':
+                            Toast.fire({
+                                type: 'warning',
+                                title: "{{Session::get('message')}}"
                     })
-                break;
-                case 'error':
-                    Toast.fire({
-                        type: 'error',
-                        title: "{{Session::get('message') }}"
+                    break;
+                        case 'error':
+                            Toast.fire({
+                                type: 'error',
+                                title: "{{Session::get('message')}}"
                     })
-                break;
-                case 'dialog_error':
-                    Toast.fire({
-                        type: 'dialog_error',
-                        title: "{{Session::get('message') }}"
-                    })
-                break;
+                    break;
+                        case 'dialog_error':
+                            Swal.fire({
+                                type: 'error',
+                                title: "Oooopss",
+                                text: "{{Session::get('message')}}",
+                                timer: 3000
+                     })
+                     break;
             }
-         @endif
 
-         @if($errors->any())
+        @endif
+
+        @if ($errors->any())
             @foreach($errors->all() as $error)
                 Swal.fire({
                     type: 'error',
-                    title: 'Ooops',
+                    title: "Ooopss",
                     text: "{{ $error }}",
                 })
                 @endforeach
-                @endif
+        @endif
 
-                @if($errors->any())
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oooops',
-                        text: 'Terjadi sesuatu kesalahaan',
-                    })
-                @endif
+        @if ($errors->any())
+                Swal.fire({
+                    icon: 'error',
+                    title: "Ooopss",
+                    text: "Terjadi suatu kesalahan",
+                })
+        @endif
+        $('#table-data').DataTable();
 
-                $('#table-data').Datatables();
-                let baseurl = "<?=url('/')?>";
-                let fullURL = "<?=url()->full()?>";
+        let baseurl = "<?=url('/')?>";
+        let fullURL = "<?=url()->full()?>";
     </script>
 
 </body>

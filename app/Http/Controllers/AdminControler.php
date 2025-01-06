@@ -60,72 +60,72 @@ class AdminControler extends Controller
         return redirect()->route('pasiens')->with($notification);
      }
 
-     //ajax process
-     public function getDataBuku($id){
-        $buku = Book::find($id);
-        return response()->json($buku);
-     }
+    //  //ajax process
+    //  public function getDataBuku($id){
+    //     $buku = Book::find($id);
+    //     return response()->json($buku);
+    //  }
 
-    public function update_book(Request $req){
-        $book = Book::find($req->get('id'));
+    // public function update_book(Request $req){
+    //     $book = Book::find($req->get('id'));
 
-        $validate = $req->validate([
-            'judul' => 'required|max:255',
-            'penulis' => 'required',
-            'tahun' => 'required',
-            'penerbit' => 'required',
-        ]);
+    //     $validate = $req->validate([
+    //         'judul' => 'required|max:255',
+    //         'penulis' => 'required',
+    //         'tahun' => 'required',
+    //         'penerbit' => 'required',
+    //     ]);
 
-        $book->judul = $req->get('judul');
-        $book->penulis = $req->get('penulis');
-        $book->tahun = $req->get('tahun');
-        $book->penerbit = $req->get('penerbit');
+    //     $book->judul = $req->get('judul');
+    //     $book->penulis = $req->get('penulis');
+    //     $book->tahun = $req->get('tahun');
+    //     $book->penerbit = $req->get('penerbit');
 
-        $book->save();
+    //     $book->save();
 
-        $notification = array(
-            'message' => 'Data Buku berhasil diubah',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.books')->with($notification);
-     }
+    //     $notification = array(
+    //         'message' => 'Data Buku berhasil diubah',
+    //         'alert-type' => 'success'
+    //     );
+    //     return redirect()->route('admin.books')->with($notification);
+    //  }
 
-     public function delete_book($id){
-        $book = Book::find($id);
+    //  public function delete_book($id){
+    //     $book = Book::find($id);
 
-        $book->delete();
+    //     $book->delete();
 
-        $success = true;
-        $message = "Data buku berhasil dihapus";
+    //     $success = true;
+    //     $message = "Data buku berhasil dihapus";
 
-        return response()->json([
-            'success' => $success,
-            'message' => $message,
-        ]);
-     }
-
-
-     public function print_books(){
-        $books = Book::all();
-
-        // $pdf = PDF::loadview('print_books',['books'=>$books]);
-        //     return $pdf->download('data_buku.pdf');
-     }
+    //     return response()->json([
+    //         'success' => $success,
+    //         'message' => $message,
+    //     ]);
+    //  }
 
 
-     public function export()
-     {
-      return Excel::download(new BookExport, 'books.xlsx');
-     }
+    //  public function print_books(){
+    //     $books = Book::all();
+
+    //     // $pdf = PDF::loadview('print_books',['books'=>$books]);
+    //     //     return $pdf->download('data_buku.pdf');
+    //  }
+
+
+    //  public function export()
+    //  {
+    //   return Excel::download(new BookExport, 'books.xlsx');
+    //  }
      
-     public function import(Request $req)
-     {
-        Excel::import(new BookImport, $req->file('file'));
+    //  public function import(Request $req)
+    //  {
+    //     Excel::import(new BookImport, $req->file('file'));
 
-        $notification = array(
-            'message' => 'Import data berhasil dilakukan',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.books')->with($notification);
-     }
+    //     $notification = array(
+    //         'message' => 'Import data berhasil dilakukan',
+    //         'alert-type' => 'success'
+    //     );
+    //     return redirect()->route('admin.books')->with($notification);
+    //  }
 }

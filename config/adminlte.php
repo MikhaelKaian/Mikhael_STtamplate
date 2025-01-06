@@ -300,41 +300,50 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
+        [
+            'type'         => 'fullscreen-widget',
+            'topnav_right' => true,
+        ],
 
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
-            'can' => 'isAdmin',
         ],
-        //  [
-        //     'text' => 'Blog',
-        //     'text' => 'admin/blog',
-        //     'can' => 'isUser',
-        // ],
-        // [
-        //     'text' => 'Pages',
-        //     'text' => 'admin/pages',
-        //     'icon' => 'fas fa-fw fa-file',
-        //     'can' => ['isUser', 'isAdmin']
-        // ],
+         [
+            'text' => 'Blog',
+            'text' => 'admin/blog',
+            'can' => 'manage-blog',
+        ],
+        [
+            'text' => 'Pages',
+            'text' => 'admin/pages',
+            'icon' => 'fas fa-fw fa-file',
+            'can' => ['isUser', 'isAdmin']
+        ],
 
         ['header' => 'labels'],
         [
-            'text' => 'Laporan Data Pasien',
+            'text' => 'Data Pasien Terjangkit',
             'url' => 'pasiens',
             'icon' => 'fas fa-fw fa-file-alt',
             'can' => 'isUser',
         ],
         [
-            'text' => 'Data Masuk',
-            'url' => 'books',
+            'text' => 'Data Laporan Tindakan',
+            'url' => 'tindakans',
+            'icon' => 'fas fa-fw fa-file-alt',
+            'can' => 'isUser',
+        ],
+        [
+            'text' => 'Data Faskes',
+            'url' => 'faskes',
             'icon' => 'fas fa-fw fa-arrow-down',
             'can' => 'isAdmin',
         ],
         [
-            'text' => 'Laporan Data Masuk',
-            'url' => 'books',
+            'text' => 'Laporan Data Malaria',
+            'url' => 'malaria',
             'icon' => 'fas fa-fw fa-arrow-down',
             'can' => 'isAdmin',
         ],
