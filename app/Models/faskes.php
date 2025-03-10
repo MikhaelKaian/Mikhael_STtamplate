@@ -16,7 +16,7 @@ class faskes extends Model
     ];
     public static function getDataBooks()
    {
-    $faskes = Book::all();
+    $faskes = faskes::all();
 
     $faskes_filter = [];
 

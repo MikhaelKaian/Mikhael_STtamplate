@@ -11,6 +11,8 @@ use App\Models\tindakan;
 use App\Models\pasien;
 use App\Models\faskes;
 
+
+
 class TindakanController extends Controller
 {
     public function __construct(){
@@ -82,4 +84,5 @@ public function store(Request $request)
 
         return redirect()->back()->with('success', 'Data tindakan berhasil ditambahkan.');
     }
+
 }

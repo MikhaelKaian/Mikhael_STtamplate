@@ -22,8 +22,11 @@ class CreateRolesSeeder extends Seeder
             [
                 'id' => 2,
                 'name' => 'User',
-                
-            ]
+            ],
+            [
+                'id' => 3,
+                'name' => 'SuperAdmin',
+            ],
             ];
 
             foreach ($roles as $key => $role){

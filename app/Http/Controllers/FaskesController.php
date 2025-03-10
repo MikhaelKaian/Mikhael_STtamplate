@@ -70,7 +70,7 @@ class FaskesController extends Controller
             'message' => 'Data faskes berhasiil diubah','alert-type' => 'success'
         );
 
-        return redirect()->route('faskes.ubah')->with($notification);
+        return redirect()->route('faskes')->with($notification);
     }
 
     public function delete_faskes($id)

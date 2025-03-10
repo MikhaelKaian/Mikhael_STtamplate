@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminControler;
 use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\FaskesController;
+use App\Http\Controllers\MalariaControler;
+use App\Http\Controllers\SuperAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,7 @@ Auth::routes();
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Faskes "Pasies"
 
@@ -59,13 +61,20 @@ Route::get('admin/home', [App\Http\Controllers\FaskesController::class, 'index']
 
 Route::get('faskes', [App\Http\Controllers\FaskesController::class, 'faskes'])->name('faskes')->middleware('is_admin');
 
-Route::post('faskes', [App\Http\Controllers\FaskesController::class, 'submit_faskes'])->name('faskes');
+Route::post('faskes', [App\Http\Controllers\FaskesController::class, 'submit_faskes'])->name('faskes')->middleware('is_admin');
 
-Route::patch('/faskes/ubah', [App\Http\Controllers\FaskesController::class, 'update_faskes'])->name('faskes.ubah')->middleware('is_admin');;
+Route::patch('faskes', [App\Http\Controllers\FaskesController::class, 'update_faskes'])->name('faskes')->middleware('is_admin');
 
-Route::get('/admin/ajaxadmin/dataBuku/{id}', [App\Http\Controllers\FaskesController::class, 'getDataBuku'])->middleware('is_admin');;
+Route::get('/admin/ajaxadmin/dataBuku/{id}', [App\Http\Controllers\FaskesController::class, 'getDataBuku'])->middleware('is_admin');
 
 Route::get('/faskes/delete/{id}', [\App\Http\Controllers\FaskesController::class, 'delete_faskes'])->name('faskes.delete')->middleware('is_admin');
 
 //admin / Dinkes "Laporan Malaria"
-Route::get('malaria', [App\Http\Controllers\MalariaControler::class, 'malaria'])->name('malaria')->middleware('is_admin');
+Route::get('malaria-pasien', [App\Http\Controllers\MalariaControler::class, 'malariapasien'])->name('malaria')->middleware('is_admin');
+Route::get('malaria-tindakan', [App\Http\Controllers\MalariaControler::class, 'malariatindakan'])->name('malaria')->middleware('is_admin');
+Route::get('monitoring-tindakan', [App\Http\Controllers\SuperAdminController::class, 'malariatindakan'])->name('malaria')->middleware('is_superadmin');
+
+Route::post('/tindakan/{id}/update-status', [SuperAdminController::class, 'updateStatusMonitoring'])->name('tindakan.update-status');
+
+//export tindakan
+Route::get('admin/malaria/export-excel', [App\Http\Controllers\MalariaControler::class, 'export'])->name('malaria.export-excel');

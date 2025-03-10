@@ -20,24 +20,24 @@ class pasien extends Model
         'kecamatan_domisili'
     ];
 
-   public static function getDataBooks()
-   {
-     $pasiens = Book::all();
+//    public static function getDataPasien()
+//    {
+//      $pasiens = pasien::all();
 
-    $pasiens_filter = [];
+//     $pasiens_filter = [];
 
-    $no = 1;
-    for ($i=0; $i < $pasiens->count(); $i++){
-        $pasiens_filter[$i]['no'] = $no++;
-        $pasiens_filter[$i]['nama_pasien'] = $pasiens[$i]->nama_pasien;
-        $pasiens_filter[$i]['usia'] = $pasiens[$i]->usia;
-        $pasiens_filter[$i]['jenis_kelamin'] = $pasiens[$i]->jenis_kelamin;
-        $pasiens_filter[$i]['berat_badan'] = $pasiens[$i]->berat_badan;
-        $pasiens_filter[$i]['pekerjaan'] = $pasiens[$i]->pekerjaan;
-        $pasiens_filter[$i]['alamat'] = $pasiens[$i]->alamat;
-        $pasiens_filter[$i]['no_telepon_pasien'] = $pasiens[$i]->no_telepon_pasien;
-        $pasiens_filter[$i]['kecamatan_domisili'] = $pasiens[$i]->kecamatan_domisili;
-    }
-    return $pasiens_filter;
-   }
+//     $no = 1;
+//     for ($i=0; $i < $pasiens->count(); $i++){
+//         $pasiens_filter[$i]['no'] = $no++;
+//         $pasiens_filter[$i]['nama_pasien'] = $pasiens[$i]->nama_pasien;
+//         $pasiens_filter[$i]['usia'] = $pasiens[$i]->usia;
+//         $pasiens_filter[$i]['jenis_kelamin'] = $pasiens[$i]->jenis_kelamin;
+//         $pasiens_filter[$i]['berat_badan'] = $pasiens[$i]->berat_badan;
+//         $pasiens_filter[$i]['pekerjaan'] = $pasiens[$i]->pekerjaan;
+//         $pasiens_filter[$i]['alamat'] = $pasiens[$i]->alamat;
+//         $pasiens_filter[$i]['no_telepon_pasien'] = $pasiens[$i]->no_telepon_pasien;
+//         $pasiens_filter[$i]['kecamatan_domisili'] = $pasiens[$i]->kecamatan_domisili;
+//     }
+//     return $pasiens_filter;
+//    }
 }

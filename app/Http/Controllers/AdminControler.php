@@ -54,7 +54,7 @@ class AdminControler extends Controller
         $pasien->save();
 
         $notification = array(
-            'message' => 'Data buku berhasiil ditambahkan','alert-type' => 'success'
+            'message' => 'Data Pasien berhasiil ditambahkan','alert-type' => 'success'
         );
 
         return redirect()->route('pasiens')->with($notification);

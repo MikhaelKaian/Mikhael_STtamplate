@@ -33,6 +33,7 @@ class CreateTindakansTable extends Migration
             $table->string('status_pengobatan');
             $table->enum('perawatan', ['rawat_inap', 'rawat_jalan']);
             $table->string('kematian_dengan_malaria');
+            $table->string('status_monitoring')->nullable();
 
             $table->timestamps();
             // $table->foreign('nama_pasien')->references('id')->on('pasiens')->onDelete('cascade');

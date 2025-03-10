@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b> Monitoring Malaria</b>',
+    'logo_img' => '/vendor/adminlte/dist/img/OIP.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -300,11 +300,6 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
-
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
@@ -319,33 +314,50 @@ return [
             'text' => 'Pages',
             'text' => 'admin/pages',
             'icon' => 'fas fa-fw fa-file',
-            'can' => ['isUser', 'isAdmin']
+            'can' => ['isUser', 'isAdmin', 'isSuperAdmin']
         ],
 
         ['header' => 'labels'],
         [
+            'text' => 'Beranda',
+            'url'  => 'home',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
             'text' => 'Data Pasien Terjangkit',
             'url' => 'pasiens',
-            'icon' => 'fas fa-fw fa-file-alt',
+            'icon' => 'fas fa-fw fas fa-user-alt',
             'can' => 'isUser',
         ],
         [
             'text' => 'Data Laporan Tindakan',
             'url' => 'tindakans',
-            'icon' => 'fas fa-fw fa-file-alt',
+            'icon' => 'fas fa-fw fas fa-diagnoses',
             'can' => 'isUser',
         ],
         [
             'text' => 'Data Faskes',
             'url' => 'faskes',
-            'icon' => 'fas fa-fw fa-arrow-down',
+            'icon' => 'fas fa-fw far fa-hospital',
             'can' => 'isAdmin',
         ],
         [
-            'text' => 'Laporan Data Malaria',
-            'url' => 'malaria',
-            'icon' => 'fas fa-fw fa-arrow-down',
+            'text' => 'Laporan Pasien Terjangkit',
+            'url' => 'malaria-pasien',
+            'icon' => 'fas fa-fw fas fa-user-check',
             'can' => 'isAdmin',
+        ],
+        [
+            'text' => 'Laporan Tindakan Malaria',
+            'url' => 'malaria-tindakan',
+            'icon' => 'fas fa-fw fas fa-file-medical',
+            'can' => 'isAdmin',
+        ],
+        [
+            'text' => 'Monitoring Malaria',
+            'url' => 'monitoring-tindakan',
+            'icon' => 'fas fa-fw fas fa-file-medical',
+            'can' => 'isSuperAdmin',
         ],
 
     ],

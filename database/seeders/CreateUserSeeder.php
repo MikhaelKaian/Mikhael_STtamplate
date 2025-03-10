@@ -16,21 +16,27 @@ class CreateUserSeeder extends Seeder
     {
         $user = [
             [
+                'name' => 'isAdmin',
+                'username' => 'isAdmin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('12345'),
+                'roles_id' => 1,
+            ],
+            [
                 'name' => 'isUser',
                 'username' => 'isUser',
-                'email' => 'user@mail.com',
+                'email' => 'user@gmail.com',
                 'password' => bcrypt('12345'),
                 'roles_id' => 2,
             ],
             [
-                'name' => 'isAdmin',
-                'username' => 'isAdmin',
-                'email' => 'admin@mail.com',
+                'name' => 'isSuperAdmin',
+                'username' => 'isSuperAdmin',
+                'email' => 'superadmin@gmail.com',
                 'password' => bcrypt('12345'),
-                'roles_id' => 1,
-            ]
+                'roles_id' => 3,
+            ],
             ];
-            
             foreach ($user as $key => $value) {
                 User::create($value);
             }
